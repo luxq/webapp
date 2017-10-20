@@ -164,8 +164,8 @@ class _ConnectionCtx(object):
 
     with connection():
         pass
-    with connection:
-        pass
+        with connection():
+            pass
     '''
     def __enter__(self):
         global _db_ctx
@@ -275,7 +275,7 @@ def with_transaction(func):
     return _wrapper
 
 def _select(sql, first, *args):
-    'execute select sql and return unique result or list results.'
+    '''execute select sql and return unique result or list results.'''
     global _db_ctx
     cursor = None
     sql = sql.replace('?', '%s')
@@ -396,7 +396,7 @@ if __name__=='__main__':
     print next_id(t)
     print next_id(t)
     logging.basicConfig(level=logging.DEBUG)
-    create_engine('test', '12345678', 'test', '172.19.21.6')
+    create_engine('root', 'Avl1108', 'test')
     update('drop table if exists user')
     update('create table user (id int primary key, name text, email text, passwd text, last_modified real)')
 
