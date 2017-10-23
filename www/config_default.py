@@ -6,7 +6,7 @@ __author__ = 'xueqian Lu'
 Default configurations.
 '''
 
-confis = {
+configs = {
     'db':{
         'host': '127.0.0.1',
         'port': 3306,

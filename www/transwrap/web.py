@@ -49,17 +49,18 @@ class Dict(dict):
     >>> d3.c
     3
     '''
-    def __init__(self,names=(), values=(), **kw):
-        super(Dict,self).__init__(**kw)
-        for k,v in zip(names,values):
+    def __init__(self, names=(), values=(), **kw):
+        super(Dict, self).__init__(**kw)
+        for k, v in zip(names, values):
             self[k] = v
-    def __getattr__(self,key):
+
+    def __getattr__(self, key):
         try:
             return self[key]
         except KeyError:
             raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
 
-    def __setattr__(self,key,val):
+    def __setattr__(self, key, val):
         self[key] = val
 
 _TIMEDELTA_ZERO = datetime.timedelta(0)
@@ -104,7 +105,7 @@ class UTC(datetime.tzinfo):
             h = int(mt.group(2))
             m = int(mt.group(3))
             if minus:
-                h, m = (-h),(-m)
+                h, m = (-h), (-m)
             self._utcoffset = datetime.timedelta(hours=h, minutes=m)
             self._tzname = 'UTC%s' % utc
         else:
@@ -125,110 +126,111 @@ class UTC(datetime.tzinfo):
     __repr__ = __str__
 
 # all known response status
+
 _RESPONSE_STATUS = {
-        # Informational
-        100: 'Continue',
-        101: 'Switching Protocols',
-        102: 'Processing',
+    # Informational
+    100: 'Continue',
+    101: 'Switching Protocols',
+    102: 'Processing',
 
-        # Successful
-        200: 'OK',
-        201: 'Created',
-        202: 'Accepted',
-        203: 'Non-Authoritative Information',
-        204: 'No Content',
-        205: 'Reset Content',
-        206: 'Partial Content',
-        207: 'Multi Status',
-        226: 'IM Used',
+    # Successful
+    200: 'OK',
+    201: 'Created',
+    202: 'Accepted',
+    203: 'Non-Authoritative Information',
+    204: 'No Content',
+    205: 'Reset Content',
+    206: 'Partial Content',
+    207: 'Multi Status',
+    226: 'IM Used',
 
-        # Redirection
-        300: 'Multiple Choice',
-        301: 'Moved Permanently',
-        302: 'Found',
-        303: 'See Other',
-        304: 'Not Modified',
-        305: 'Use Proxy',
-        307: 'Temporary Redirect',
+    # Redirection
+    300: 'Multiple Choices',
+    301: 'Moved Permanently',
+    302: 'Found',
+    303: 'See Other',
+    304: 'Not Modified',
+    305: 'Use Proxy',
+    307: 'Temporary Redirect',
 
-        # Client Error
-        400: 'Bad Request',
-        401: 'Unauthorized',
-        402: 'Payment Required',
-        403: 'Forbidden',
-        404: 'Not Found',
-        405: 'Method Not Allowed',
-        406: 'Not Acceptable',
-        407: 'Proxy Authentication Required',
-        408: 'Request Timeout',
-        409: 'Conflict',
-        410: 'Gone',
-        411: 'Length Required',
-        412: 'Precondition Failed',
-        413: 'Request Entity Too Large',
-        414: 'Request URI Too Long',
-        415: 'Unsupported Media Type',
-        416: 'Requested Range Not Satisfiable',
-        417: 'Expectation Failed',
-        418: "I'm a teapot",
-        422: 'Unprocessable Entity',
-        423: 'Locked',
-        424: 'Failed Dependency',
-        426: 'Upgrade Required',
+    # Client Error
+    400: 'Bad Request',
+    401: 'Unauthorized',
+    402: 'Payment Required',
+    403: 'Forbidden',
+    404: 'Not Found',
+    405: 'Method Not Allowed',
+    406: 'Not Acceptable',
+    407: 'Proxy Authentication Required',
+    408: 'Request Timeout',
+    409: 'Conflict',
+    410: 'Gone',
+    411: 'Length Required',
+    412: 'Precondition Failed',
+    413: 'Request Entity Too Large',
+    414: 'Request URI Too Long',
+    415: 'Unsupported Media Type',
+    416: 'Requested Range Not Satisfiable',
+    417: 'Expectation Failed',
+    418: "I'm a teapot",
+    422: 'Unprocessable Entity',
+    423: 'Locked',
+    424: 'Failed Dependency',
+    426: 'Upgrade Required',
 
-        # Server Error
-        500: 'Internal Server Error',
-        501: 'Not Implemented',
-        502: 'Bad Gateway',
-        503: 'Service Unavailable',
-        504: 'Gateway Timeout',
-        505: 'HTTP Version Not Supported',
-        507: 'Insufficient Storage',
-        510: 'Not Extended',
+    # Server Error
+    500: 'Internal Server Error',
+    501: 'Not Implemented',
+    502: 'Bad Gateway',
+    503: 'Service Unavailable',
+    504: 'Gateway Timeout',
+    505: 'HTTP Version Not Supported',
+    507: 'Insufficient Storage',
+    510: 'Not Extended',
 }
 
 _RE_RESPONSE_STATUS = re.compile(r'^\d\d\d(\ [\w\ ]+)?$')
 
 _RESPONSE_HEADERS = (
-        'Accept-Ranges',
-        'Age',
-        'Allow',
-        'Cache-Control',
-        'Connection',
-        'Content-Encoding',
-        'Content-Language',
-        'Content-Length',
-        'Content-Location',
-        'Content-MD5',
-        'Content-Disposition',
-        'Content-Range',
-        'Content-Type',
-        'Date',
-        'ETag',
-        'Expires',
-        'Last-Modified',
-        'Link',
-        'Location',
-        'P3P',
-        'Pragma',
-        'Proxy-Authenticate',
-        'Refresh',
-        'Retry-After',
-        'Server',
-        'Set-Cookie',
-        'Strict-Transport-Security',
-        'Trailer',
-        'Transfer-Encoding',
-        'Vary',
-        'Via',
-        'Warning',
-        'WWW-Authenticate',
-        'X-Frame-Options',
-        'X-XSS-Protection',
-        'X-Content-Type-Options',
-        'X-Forwarded-Proto',
-        'X-Powered-By',
-        'X-UA-Compatible',
+    'Accept-Ranges',
+    'Age',
+    'Allow',
+    'Cache-Control',
+    'Connection',
+    'Content-Encoding',
+    'Content-Language',
+    'Content-Length',
+    'Content-Location',
+    'Content-MD5',
+    'Content-Disposition',
+    'Content-Range',
+    'Content-Type',
+    'Date',
+    'ETag',
+    'Expires',
+    'Last-Modified',
+    'Link',
+    'Location',
+    'P3P',
+    'Pragma',
+    'Proxy-Authenticate',
+    'Refresh',
+    'Retry-After',
+    'Server',
+    'Set-Cookie',
+    'Strict-Transport-Security',
+    'Trailer',
+    'Transfer-Encoding',
+    'Vary',
+    'Via',
+    'Warning',
+    'WWW-Authenticate',
+    'X-Frame-Options',
+    'X-XSS-Protection',
+    'X-Content-Type-Options',
+    'X-Forwarded-Proto',
+    'X-Powered-By',
+    'X-UA-Compatible',
 )
 
 _RESPONSE_HEADER_DICT = dict(zip(map(lambda x: x.upper(), _RESPONSE_HEADERS), _RESPONSE_HEADERS))
@@ -243,15 +245,14 @@ class HttpError(Exception):
     >>> e.status 
     '404 Not Found'
     '''
-
-    def __init__(self,code):
+    def __init__(self, code):
         super(HttpError, self).__init__()
         self.status = '%d %s' % (code, _RESPONSE_STATUS[code])
 
     def header(self, name, value):
         if not hasattr(self, '_headers'):
             self._headers = [_HEADER_X_POWERED_BY]
-        self._headers.append((name,value))
+        self._headers.append((name, value))
 
     @property
     def headers(self):
@@ -274,7 +275,6 @@ class RedirectError(HttpError):
     >>> e.location
     'http://www.apple.com/'
     '''
-
     def __init__(self, code, location):
         super(RedirectError, self).__init__(code)
         self.location = location
@@ -286,20 +286,21 @@ class RedirectError(HttpError):
 
 def badrequest():
     '''
-    send a bad request response.
+    Send a bad request response.
+
     >>> raise badrequest()
     Traceback (most recent call last):
-        ...
-    HttpError: 400 Bad request
+      ...
+    HttpError: 400 Bad Request
     '''
     return HttpError(400)
 
 def unauthorized():
     '''
-    send an unauthorized response.
+    Send an unauthorized response.
     >>> raise unauthorized()
     Traceback (most recent call last):
-        ...
+      ...
     HttpError: 401 Unauthorized
     '''
     return HttpError(401)
@@ -336,7 +337,6 @@ def _to_str(s):
     >>> _to_str(-123) == '-123'
     True
     '''
-
     if isinstance(s, str):
         return s
     if isinstance(s, unicode):
@@ -345,7 +345,8 @@ def _to_str(s):
 
 def _to_unicode(s, encoding='utf-8'):
     '''
-    Convert to unicode. 
+    Convert to unicode.
+
     >>> _to_unicode('\xe4\xb8\xad\xe6\x96\x87') == u'\u4e2d\u6587'
     True
     '''
@@ -353,7 +354,8 @@ def _to_unicode(s, encoding='utf-8'):
 
 def _quote(s, encoding='utf-8'):
     '''
-    Url quote as str. 
+    Url quote as str.
+
     >>> _quote('http://example/test?a=1+')
     'http%3A//example/test%3Fa%3D1%2B'
     >>> _quote(u'hello world!')
@@ -366,6 +368,7 @@ def _quote(s, encoding='utf-8'):
 def _unquote(s, encoding='utf-8'):
     '''
     Url unquote as unicode.
+
     >>> _unquote('http%3A//example/test%3Fa%3D1+')
     u'http://example/test?a=1+'
     '''
@@ -374,7 +377,7 @@ def _unquote(s, encoding='utf-8'):
 def get(path):
     '''
     A @get decorator.
-    
+
     @get('/:id')
     def index(id):
         pass
@@ -393,7 +396,7 @@ def get(path):
     def _decorator(func):
         func.__web_route__ = path
         func.__web_method__ = 'GET'
-        return func 
+        return func
     return _decorator
 
 def post(path):
@@ -414,14 +417,14 @@ def post(path):
     def _decorator(func):
         func.__web_route__ = path
         func.__web_method__ = 'POST'
-        return func 
+        return func
     return _decorator
 
 _re_route = re.compile(r'(\:[a-zA-Z_]\w*)')
 
 def _build_regex(path):
     r'''
-    Convert reoute path to regex.
+    Convert route path to regex.
 
     >>> _build_regex('/path/to/:file')
     '^\\/path\\/to\\/(?P<file>[^\\/]+)$'
@@ -441,14 +444,14 @@ def _build_regex(path):
         else:
             s = ''
             for ch in v:
-                if ch >= '0' and ch <= '9':
-                    s = s + ch 
-                elif ch >= 'A' and ch <= 'Z':
-                    s = s + ch 
-                elif ch >= 'a' and ch <= 'z':
-                    s = s + ch 
+                if ch>='0' and ch<='9':
+                    s = s + ch
+                elif ch>='A' and ch<='Z':
+                    s = s + ch
+                elif ch>='a' and ch<='z':
+                    s = s + ch
                 else:
-                    s = s + '\\' + ch 
+                    s = s + '\\' + ch
             re_list.append(s)
         is_var = not is_var
     re_list.append('$')
@@ -458,13 +461,14 @@ class Route(object):
     '''
     A Route object is a callable object.
     '''
+    
     def __init__(self, func):
         self.path = func.__web_route__
         self.method = func.__web_method__
-        self.is_static = _re_route.search(self.path)
+        self.is_static = _re_route.search(self.path) is None
         if not self.is_static:
             self.route = re.compile(_build_regex(self.path))
-        self.func = func 
+        self.func = func
 
     def match(self, url):
         m = self.route.match(url)
@@ -487,18 +491,19 @@ def _static_file_generator(fpath):
     with open(fpath, 'rb') as f:
         block = f.read(BLOCK_SIZE)
         while block:
-            yield block 
+            yield block
             block = f.read(BLOCK_SIZE)
 
 class StaticFileRoute(object):
+
     def __init__(self):
         self.method = 'GET'
         self.is_static = False
         self.route = re.compile('^/static/(.+)$')
 
     def match(self, url):
-        if url.startwith('/static/'):
-            return (url[1:],)
+        if url.startswith('/static/'):
+            return (url[1:], )
         return None
 
     def __call__(self, *args):
@@ -510,7 +515,7 @@ class StaticFileRoute(object):
         return _static_file_generator(fpath)
 
 def favicon_handler():
-    return _static_file_generator('/favicon.ico')
+    return static_file_handler('/favicon.ico')
 
 class MultipartFile(object):
     '''
@@ -547,17 +552,16 @@ class Request(object):
 
     def _get_raw_input(self):
         '''
-        Get raw input as dict containing values as unicode, list or MultipartFile. 
+        Get raw input as dict containing values as unicode, list or MultipartFile.
         '''
         if not hasattr(self, '_raw_input'):
             self._raw_input = self._parse_input()
-        return self._raw_input 
+        return self._raw_input
 
     def __getitem__(self, key):
         '''
-        Get input parameter value. If the specified key has 
-        multiple value, the first one is returned.
-        If the specified key is not exist, then raise KeyError. 
+        Get input parameter value. If the specified key has multiple value, the first one is returned.
+        If the specified key is not exist, then raise KeyError.
 
         >>> from StringIO import StringIO
         >>> r = Request({'REQUEST_METHOD':'POST', 'wsgi.input':StringIO('a=1&b=M%20M&c=ABC&d=XYZ&e=')})
@@ -675,8 +679,9 @@ class Request(object):
     def _get_headers(self):
         if not hasattr(self, '_headers'):
             hdrs = {}
-            for k,v in self._environ.iteritems():
-                if k.startwith('HTTP_'):
+            for k, v in self._environ.iteritems():
+                if k.startswith('HTTP_'):
+                    # convert 'HTTP_ACCEPT_ENCODING' to 'ACCEPT-ENCODING'
                     hdrs[k[5:].replace('_', '-').upper()] = v.decode('utf-8')
             self._headers = hdrs
         return self._headers
@@ -835,7 +840,7 @@ class Jinja2TemplateEngine(TemplateEngine):
         from jinja2 import Environment, FileSystemLoader
         if not 'autoescape' in kw:
             kw['autoescape'] = True 
-        self._env = Environment(loader=File(templ_dir), **kw)
+        self._env = Environment(loader=FileSystemLoader(templ_dir), **kw)
 
     def add_filter(self, name, fn_filter):
         self._env.filters[name] = fn_filter
@@ -979,8 +984,8 @@ class WSGIApplication(object):
         self._template_engine = None 
         self._get_static = {}
         self._post_static = {}
-        self._get_dynamic = {}
-        self._post_dynamic = {}
+        self._get_dynamic = []
+        self._post_dynamic = []
 
     def _check_not_running(self):
         if self._running:
@@ -1078,6 +1083,7 @@ class WSGIApplication(object):
                 return r
             except RedirectError, e:
                 response.set_header('Location', e.location)
+                start_response(e.status, response.headers)
                 return []
             except HttpError, e:
                 start_response(e.status, response.headers)
@@ -1094,9 +1100,9 @@ class WSGIApplication(object):
                 fp.close()
                 start_response('500 Internal Server Error', [])
                 return [
-                        r'''<html><body><h1>500 Internal Server Error</h1><div style="font-family:Monaco, Menlo, Consolas, 'Courier New', monospace;"><pre>''',
-                                            stacks.replace('<', '&lt;').replace('>', '&gt;'),
-                                            '</pre></div></body></html>']
+                    r'''<html><body><h1>500 Internal Server Error</h1><div style="font-family:Monaco, Menlo, Consolas, 'Courier New', monospace;"><pre>''',
+                    stacks.replace('<', '&lt;').replace('>', '&gt;'),
+                    '</pre></div></body></html>']
             finally:
                 del ctx.application
                 del ctx.request
