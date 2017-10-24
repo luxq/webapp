@@ -27,7 +27,7 @@ process = None
 def kill_process():
     global process 
     if process:
-        log('Kill process [%s]...' % process.id)
+        log('Kill process [%s]...' % process.pid)
         process.kill()
         process.wait()
         log('Process ended with code %s.' % process.returncode)
