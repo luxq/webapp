@@ -14,7 +14,7 @@ configs = {
         'password': '%Avl1108',
         'database': 'test'
     },
-    'sesstion':{
+    'session':{
         'secret': 'AwEsOmE'
     }
 }
