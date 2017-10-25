@@ -101,6 +101,7 @@ def authenticate():
     email = i.email.strip().lower()
     password = i.password
     remember = i.remember
+    logging.info('email is %s' % email)
     user = User.find_first('where email=?', email)
     if user is None:
         raise APIError('auth:failed', 'email', 'Invalid email.')
@@ -147,7 +148,12 @@ def register():
 @view('manage_blog_list.html')
 @get('/manage/blogs')
 def manage_blogs():
-    return dict(page_index=_get_page_index(), user=ctx.request.user)
+    user=ctx.request.user
+    if user:
+        print "user is admin ",user.admin
+    else:
+        print 'user is None'
+    return dict(page_index=_get_page_index(), user=user)
 
 
 @view('manage_blog_edit.html')
