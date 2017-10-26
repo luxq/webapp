@@ -82,9 +82,9 @@ class UTC(datetime.tzinfo):
     >>> tz7 = UTC('+7:30')
     >>> tz7.tzname(None)
     'UTC+7:30'
-    >>> tz5 = UTC('-5:30')
+    >>> tz5 = UTC('-05:30')
     >>> tz5.tzname(None)
-    'UTC-5:30'
+    'UTC-05:30'
     >>> from datetime import datetime
     >>> u = datetime.utcnow().replace(tzinfo=tz0)
     >>> l1 = u.astimezone(tz8)
@@ -700,9 +700,9 @@ class Request(object):
             if cookie_str:
                 for c in cookie_str.split(';'):
                     pos = c.find('=')
-                    if pos > 0:
+                    if pos>0:
                         cookies[c[:pos].strip()] = _unquote(c[pos+1:])
-            self._cookies = cookies 
+            self._cookies = cookies
         return self._cookies
 
     @property
@@ -762,7 +762,7 @@ class Response(object):
     def content_length(self):
         return self.header('CONTENT-LENGTH')
 
-    @content_length.setter 
+    @content_length.setter
     def content_length(self, value):
         self.set_header('CONTENT-LENGTH', str(value))
 
@@ -868,7 +868,7 @@ def view(path):
         def _wrapper(*args, **kw):
             r = func(*args, **kw)
             if isinstance(r, dict):
-                logging.info('return Template')
+                logging.info('return Template %s' % path)
                 return Template(path, **r)
             raise ValueError('Except return a dict when using @view() decorator.')
         return _wrapper

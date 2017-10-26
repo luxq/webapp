@@ -13,7 +13,7 @@ from transwrap.web import WSGIApplication, Jinja2TemplateEngine
 from config import configs
 
 def datetime_filter(t):
-    dalta = int(time.time() - t)
+    delta = int(time.time() - t)
     if delta < 60:
         return u'1分钟前'
     if delta < 3600:

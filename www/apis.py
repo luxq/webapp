@@ -54,27 +54,26 @@ class Page(object):
             self.limit = self.page_size
 
         self.has_next = self.page_index < self.page_count
-        self.has_previout = self.page_index > 1
+        self.has_previous = self.page_index > 1
 
     def __str__(self):
-        return 'item_count: %s, page_count: %s, page_index: %s, page_size: %s, offset: %s, limit: %s' % (self.item_count,
-                self.page_count, self.page_index, self.page_size, self.offset, self.limit)
+        return 'item_count: %s, page_count: %s, page_index: %s, page_size: %s, offset: %s, limit: %s' % (self.item_count, self.page_count, self.page_index, self.page_size, self.offset, self.limit)
 
     __repr__ = __str__
 
 def _dump(obj):
     if isinstance(obj, Page):
         return {
-                'page_index':obj.page_index,
-                'page_count':obj.page_count,
-                'item_count':obj.item_count,
-                'has_next':obj.has_next,
-                'has_previout':obj.has_previout
-                }
+            'page_index':obj.page_index,
+            'page_count':obj.page_count,
+            'item_count':obj.item_count,
+            'has_next':obj.has_next,
+            'has_previous':obj.has_previous
+        }
     raise TypeError('%s is not Json serializable' % obj)
 
 def dumps(obj):
-    return json.dumps(obj)
+    return json.dumps(obj, default=_dump)
 
 class APIError(StandardError):
     '''
@@ -112,7 +111,7 @@ def api(func):
     A decorator that makes a function to json api, makes the return value as json.
 
     @app.route('/api/test')
-    @api 
+    @api
     def api_test():
         return dict(result='123', items=[])
     '''
@@ -129,7 +128,7 @@ def api(func):
         return r
     return _wrapper
 
-if __name__ == '__main__':
+if __name__=='__main__':
     import doctest
     doctest.testmod()
 
