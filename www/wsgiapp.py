@@ -7,7 +7,7 @@ A WSGI application entry.
 '''
 
 import logging; logging.basicConfig(level=logging.INFO)
-import os
+import os, time
 from transwrap import db
 from transwrap.web import WSGIApplication, Jinja2TemplateEngine
 from config import configs
